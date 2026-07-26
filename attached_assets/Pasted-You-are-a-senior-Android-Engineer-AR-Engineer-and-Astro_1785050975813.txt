@@ -1,0 +1,449 @@
+You are a senior Android Engineer, AR Engineer, and Astronomy Software Engineer.
+
+Your task is to build a complete Android application named:
+
+SkyFinder
+
+The application should be production-quality, modular, and easy to maintain.
+
+========================================================
+PROJECT GOAL
+========================================================
+
+The app has only ONE feature.
+
+When the user opens the camera and points the phone toward the night sky, the app must identify the stars currently visible in that direction and display their names as an augmented reality overlay.
+
+The app DOES NOT use image recognition AI.
+
+Instead it calculates star positions using:
+
+• GPS location
+• Current UTC time
+• Magnetometer
+• Accelerometer
+• Gyroscope
+
+Then projects stars into the camera coordinate system.
+
+This is similar to Sky Map or Stellarium Mobile.
+
+Everything should work offline.
+
+========================================================
+TECH STACK
+========================================================
+
+Language:
+Kotlin
+
+UI:
+Jetpack Compose
+
+Architecture:
+MVVM + Repository Pattern
+
+Database:
+Room
+
+Camera:
+CameraX
+
+Sensors:
+SensorManager
+
+Location:
+FusedLocationProviderClient
+
+Dependency Injection:
+Hilt
+
+Coroutines:
+Kotlin Coroutines
+
+Navigation:
+Navigation Compose
+
+Minimum SDK:
+26
+
+Target SDK:
+Latest
+
+========================================================
+PROJECT STRUCTURE
+========================================================
+
+Create the following architecture.
+
+app/
+
+ui/
+
+camera/
+
+CameraScreen
+
+CameraOverlay
+
+StarLabel
+
+StarInfoDialog
+
+viewmodel/
+
+CameraViewModel
+
+sensor/
+
+CompassManager
+
+GyroscopeManager
+
+AccelerometerManager
+
+OrientationFusion
+
+location/
+
+LocationProvider
+
+astronomy/
+
+AstronomyEngine
+
+CoordinateConverter
+
+ProjectionEngine
+
+TimeCalculator
+
+catalog/
+
+StarRepository
+
+StarDatabase
+
+StarEntity
+
+assets/
+
+bright_star_catalog.json
+
+model/
+
+Star
+
+StarPosition
+
+OrientationData
+
+repository/
+
+StarRepositoryImpl
+
+========================================================
+FEATURES
+========================================================
+
+1.
+Open Camera
+
+CameraX Preview.
+
+No photo capture.
+
+Only preview.
+
+--------------------------------------------------------
+
+2.
+
+Read sensors continuously.
+
+Compass
+
+Accelerometer
+
+Gyroscope
+
+Fuse sensors to obtain stable orientation.
+
+Calculate:
+
+Azimuth
+
+Pitch
+
+Roll
+
+Use complementary filter or Kalman filter to reduce jitter.
+
+--------------------------------------------------------
+
+3.
+
+Read GPS location.
+
+Latitude
+
+Longitude
+
+Altitude
+
+Update when location changes.
+
+--------------------------------------------------------
+
+4.
+
+Calculate visible sky.
+
+Input:
+
+Latitude
+
+Longitude
+
+UTC Time
+
+Output:
+
+Altitude
+
+Azimuth
+
+for every star.
+
+========================================================
+ASTRONOMY
+========================================================
+
+Implement astronomy calculations.
+
+Convert
+
+Right Ascension
+
+Declination
+
+↓
+
+Altitude
+
+Azimuth
+
+using sidereal time.
+
+Implement:
+
+Julian Date
+
+Greenwich Sidereal Time
+
+Local Sidereal Time
+
+Coordinate transformations.
+
+========================================================
+STAR DATABASE
+========================================================
+
+Use a local JSON file.
+
+Include approximately 9000 bright stars.
+
+Each record contains:
+
+id
+
+name
+
+RA
+
+Dec
+
+Magnitude
+
+Distance
+
+Constellation
+
+Temperature
+
+Spectral Type
+
+Radius
+
+Description
+
+No Internet required.
+
+========================================================
+PROJECTION
+========================================================
+
+Convert
+
+Altitude
+
+Azimuth
+
+↓
+
+Screen X
+
+Screen Y
+
+based on current phone orientation.
+
+Only render stars inside camera field of view.
+
+Ignore stars behind camera.
+
+========================================================
+CAMERA OVERLAY
+========================================================
+
+Draw labels.
+
+Example
+
+★
+
+Vega
+
+★
+
+Deneb
+
+★
+
+Altair
+
+Each label should remain attached to the correct star while moving the phone.
+
+Smooth animation.
+
+60 FPS.
+
+========================================================
+STAR SELECTION
+========================================================
+
+Tap a star label.
+
+Open Bottom Sheet.
+
+Display:
+
+Name
+
+Constellation
+
+Distance
+
+Magnitude
+
+Temperature
+
+Radius
+
+Spectral Type
+
+Description
+
+========================================================
+PERFORMANCE
+========================================================
+
+Target:
+
+60 FPS
+
+No blocking operations
+
+Background calculations
+
+Efficient projection
+
+========================================================
+UI
+========================================================
+
+Minimalist.
+
+Dark theme.
+
+Transparent overlay.
+
+White labels.
+
+Blue highlight for selected star.
+
+========================================================
+ERROR HANDLING
+========================================================
+
+If location unavailable:
+
+Display message.
+
+If sensors unavailable:
+
+Display unsupported device.
+
+If permissions denied:
+
+Request permissions.
+
+========================================================
+PERMISSIONS
+========================================================
+
+Camera
+
+Fine Location
+
+Coarse Location
+
+========================================================
+DELIVERABLE
+========================================================
+
+Generate a complete Android Studio project.
+
+The project must compile successfully.
+
+Do not leave TODOs.
+
+Do not use placeholders.
+
+Implement all classes.
+
+Use comments explaining astronomy formulas.
+
+========================================================
+BONUS
+========================================================
+
+If possible, implement:
+
+• Constellation lines
+• Magnitude-based star size
+• Night Mode (red overlay)
+• Search star by name
+• Favorite stars
+• FPS counter for debugging
+
+========================================================
+IMPORTANT
+========================================================
+
+Do NOT use AI image recognition.
+
+Everything must be based on astronomical calculations and device sensors.
+
+Focus on accuracy, smooth rendering, and offline operation.
+
+Write clean, documented, production-quality Kotlin code following Android best practices.
